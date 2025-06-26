@@ -5,4 +5,6 @@ object GradleNamespaces {
 
     const val APP = "$BASE.app"
     const val CORE = "$BASE.core"
+
+    const val HOME = "$BASE.home"
 }

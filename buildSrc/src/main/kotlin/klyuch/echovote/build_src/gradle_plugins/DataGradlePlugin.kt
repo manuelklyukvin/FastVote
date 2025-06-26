@@ -21,6 +21,9 @@ class DataGradlePlugin : CoreGradlePlugin() {
         project.android().apply {
             compileSdk = GradleVersions.COMPILE_SDK
 
+            defaultConfig {
+                minSdk = GradleVersions.MIN_SDK
+            }
             compileOptions {
                 sourceCompatibility = GradleVersions.JAVA
                 targetCompatibility = GradleVersions.JAVA

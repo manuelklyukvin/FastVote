@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import klyuch.echovote.core.ui.components.scaffolds.AppScaffold
 import klyuch.echovote.core.ui.navigation.graphs.AppNavGraph
 import klyuch.echovote.core.ui.theme.AppTheme
+import klyuch.echovote.home.ui.screens.HomeScreen
 
 @Preview
 @Composable
@@ -19,7 +20,7 @@ fun AppScreen() {
         ) {
             AppScaffold {
                 AppNavGraph(
-                    homeScreen = { },
+                    homeScreen = { HomeScreen() },
                     postVoteScreen = { },
                     profileScreen = { },
                 )

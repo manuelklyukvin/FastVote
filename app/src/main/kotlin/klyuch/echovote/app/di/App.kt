@@ -5,6 +5,7 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.request.CachePolicy
 import klyuch.echovote.app.di.modules.coreModule
+import klyuch.echovote.app.di.modules.homeModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -13,7 +14,10 @@ class App : Application(), ImageLoaderFactory {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(coreModule)
+            modules(
+                coreModule,
+                homeModule
+            )
         }
     }
 
