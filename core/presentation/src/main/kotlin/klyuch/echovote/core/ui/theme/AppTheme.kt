@@ -13,18 +13,16 @@ import klyuch.echovote.core.ui.navigation.NavigationState
 import klyuch.echovote.core.ui.navigation.rememberNavigationState
 import klyuch.echovote.core.ui.theme.resources.Fonts
 
-val localNavigationState = staticCompositionLocalOf<NavigationState> { error("No NavigationState provided") }
-private val localColorScheme = staticCompositionLocalOf<AppColorScheme> { error("No ColorScheme provided") }
-private val localShapes = staticCompositionLocalOf<AppShapes> { error("No Shapes provided") }
-private val localTypography = staticCompositionLocalOf<AppTypography> { error("No Typography provided") }
+val localNavigationState = staticCompositionLocalOf<NavigationState> { error("No navigation state provided") }
+private val localColorScheme = staticCompositionLocalOf<AppColorScheme> { error("No color scheme provided") }
+private val localShapes = staticCompositionLocalOf<AppShapes> { error("No shapes provided") }
+private val localTypography = staticCompositionLocalOf<AppTypography> { error("No typography provided") }
 
 @Composable
 fun AppTheme(content: @Composable () -> Unit) {
     val colorScheme = AppColorScheme(
         primary = colorResource(R.color.primary),
         onPrimary = colorResource(R.color.on_primary),
-        secondary = colorResource(R.color.secondary),
-        onSecondary = colorResource(R.color.on_secondary),
         error = colorResource(R.color.error),
         background = colorResource(R.color.background),
         onBackground = colorResource(R.color.on_background),
@@ -47,9 +45,14 @@ fun AppTheme(content: @Composable () -> Unit) {
         title = TextStyle(
             fontFamily = Fonts.ptSansCaption,
             color = colorScheme.onBackground,
-            fontSize = 18.sp
+            fontSize = 16.sp
         ),
         headline = TextStyle(
+            fontFamily = Fonts.ptSansCaption,
+            color = colorScheme.onBackground,
+            fontSize = 20.sp
+        ),
+        display = TextStyle(
             fontFamily = Fonts.ptSansCaption,
             color = colorScheme.onBackground,
             fontSize = 24.sp
@@ -57,20 +60,22 @@ fun AppTheme(content: @Composable () -> Unit) {
     )
 
     val shapes = AppShapes(
-        screenPadding = 12.dp,
-        roundedCornerShape = RoundedCornerShape(12.dp),
-
         paddingExtraSmall = 4.dp,
         paddingSmall = 8.dp,
-        paddingMedium = 12.dp,
-        paddingLarge = 16.dp,
-        paddingExtraLarge = 20.dp,
+        paddingNormal = 12.dp,
+        paddingMedium = 16.dp,
+        paddingLarge = 20.dp,
+        paddingExtraLarge = 24.dp,
 
         sizeExtraSmall = 16.dp,
         sizeSmall = 24.dp,
-        sizeMedium = 32.dp,
+        sizeNormal = 32.dp,
+        sizeMedium = 40.dp,
         sizeLarge = 48.dp,
-        sizeExtraLarge = 64.dp
+        sizeExtraLarge = 56.dp,
+
+        screenPadding = 12.dp,
+        roundedCornerShape = RoundedCornerShape(12.dp)
     )
 
     CompositionLocalProvider(

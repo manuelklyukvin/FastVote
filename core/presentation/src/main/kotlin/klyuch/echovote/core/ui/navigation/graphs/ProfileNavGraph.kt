@@ -6,7 +6,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import klyuch.echovote.core.ui.navigation.Routes
 
-fun NavGraphBuilder.profileNavGraph(profileScreen: @Composable () -> Unit) {
+fun NavGraphBuilder.profileNavGraph(
+    profileScreen: @Composable () -> Unit
+) {
     navigation<Routes.ProfileBlock>(startDestination = Routes.Profile) {
         composable<Routes.Profile> { profileScreen() }
     }

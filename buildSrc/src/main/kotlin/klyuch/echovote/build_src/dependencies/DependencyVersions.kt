@@ -8,6 +8,8 @@ internal object DependencyVersions {
     const val COMPOSE_BOM = "2025.04.01"
     const val MATERIAL = "1.3.2"
 
+    const val COROUTINES = "1.10.2"
+
     const val KOIN = "4.0.4"
 
     const val RETROFIT = "2.11.0"
@@ -15,8 +17,6 @@ internal object DependencyVersions {
     const val SERIALIZATION = "1.8.1"
 
     const val NAVIGATION_COMPOSE = "2.8.9"
-
-    const val COROUTINES = "1.10.2"
 
     const val COIL = "2.7.0"
 

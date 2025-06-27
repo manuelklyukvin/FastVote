@@ -12,7 +12,7 @@ abstract class AppViewModel<S : AppState, I : AppIntent>(initialState: S) : View
     private val _state = MutableStateFlow(initialState)
     val state get() = _state.asStateFlow()
 
-    protected fun reduce(reducer: S.() -> S) = _state.update { it.reducer() }
+    protected fun update(function: S.() -> S) = _state.update { it.function() }
 
     abstract fun onIntent(intent: I)
 

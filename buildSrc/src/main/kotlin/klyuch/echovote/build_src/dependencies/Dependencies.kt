@@ -12,6 +12,8 @@ internal object Dependencies {
     const val UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview"
     const val MATERIAL = "androidx.compose.material3:material3:${DependencyVersions.MATERIAL}"
 
+    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.COROUTINES}"
+
     const val KOIN_CORE = "io.insert-koin:koin-core:${DependencyVersions.KOIN}"
     const val KOIN_ANDROID = "io.insert-koin:koin-android:${DependencyVersions.KOIN}"
     const val KOIN_COMPOSE = "io.insert-koin:koin-androidx-compose:${DependencyVersions.KOIN}"
@@ -22,8 +24,6 @@ internal object Dependencies {
     const val SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-json:${DependencyVersions.SERIALIZATION}"
 
     const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose:${DependencyVersions.NAVIGATION_COMPOSE}"
-
-    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.COROUTINES}"
 
     const val COIL = "io.coil-kt:coil-compose:${DependencyVersions.COIL}"
 

@@ -1,6 +1,8 @@
 package klyuch.echovote.core.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Button
@@ -9,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import klyuch.echovote.core.ui.components.texts.AppLineText
 import klyuch.echovote.core.ui.theme.AppTheme
 
@@ -18,10 +21,20 @@ fun AppButton(
     onClick: () -> Unit,
     text: String? = null,
     isEnabled: Boolean = true,
-    containerColor: Color = AppTheme.colorScheme.primary,
-    contentColor: Color = AppTheme.colorScheme.onPrimary,
+    isPrimary: Boolean = true,
     content: @Composable (() -> Unit)? = null
 ) {
+    val containerColor: Color
+    val contentColor: Color
+
+    if (isPrimary) {
+        containerColor = AppTheme.colorScheme.primary
+        contentColor = AppTheme.colorScheme.onPrimary
+    } else {
+        containerColor = Color.Transparent
+        contentColor = AppTheme.colorScheme.primary
+    }
+
     val alpha = 0.5f
     val disabledContainerColor = containerColor.copy(alpha = alpha)
     val disabledContentColor = contentColor.copy(alpha = alpha)
@@ -37,6 +50,7 @@ fun AppButton(
             disabledContainerColor = disabledContainerColor,
             disabledContentColor = disabledContentColor
         ),
+        border = if (isPrimary) null else BorderStroke(1.dp, contentColor),
         contentPadding = PaddingValues(
             horizontal = AppTheme.shapes.paddingExtraLarge,
             vertical = AppTheme.shapes.paddingMedium
@@ -57,16 +71,16 @@ private fun LightPrimaryAppButtonPreview() {
     PrimaryAppButtonPreview()
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun DarkPrimaryAppButtonPreview() {
-    PrimaryAppButtonPreview()
-}
-
 @Preview
 @Composable
 private fun LightSecondaryAppButtonPreview() {
     SecondaryAppButtonPreview()
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun DarkPrimaryAppButtonPreview() {
+    PrimaryAppButtonPreview()
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -78,7 +92,7 @@ private fun DarkSecondaryAppButtonPreview() {
 @Composable
 private fun PrimaryAppButtonPreview() {
     AppTheme {
-        Column {
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             AppButton(
                 text = "Enabled",
                 onClick = { }
@@ -95,19 +109,17 @@ private fun PrimaryAppButtonPreview() {
 @Composable
 private fun SecondaryAppButtonPreview() {
     AppTheme {
-        Column {
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             AppButton(
                 text = "Enabled",
                 onClick = { },
-                containerColor = AppTheme.colorScheme.secondary,
-                contentColor = AppTheme.colorScheme.onSecondary
+                isPrimary = false
             )
             AppButton(
                 text = "Disabled",
                 onClick = { },
                 isEnabled = false,
-                containerColor = AppTheme.colorScheme.secondary,
-                contentColor = AppTheme.colorScheme.onSecondary
+                isPrimary = false
             )
         }
     }

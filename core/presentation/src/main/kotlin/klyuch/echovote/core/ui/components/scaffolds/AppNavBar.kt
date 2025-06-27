@@ -88,9 +88,9 @@ private fun AppNavBarItem(
         AppIcon(
             modifier = Modifier.size(
                 if (label != null) {
-                    AppTheme.shapes.sizeMedium
+                    AppTheme.shapes.sizeNormal
                 } else {
-                    AppTheme.shapes.sizeLarge
+                    AppTheme.shapes.sizeMedium
                 }
             ),
             model = icon,

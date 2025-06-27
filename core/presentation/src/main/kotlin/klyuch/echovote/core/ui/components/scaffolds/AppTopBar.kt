@@ -32,7 +32,7 @@ fun AppTopBar() {
     ) {
         AppIcon(
             modifier = Modifier
-                .size(AppTheme.shapes.sizeMedium)
+                .size(AppTheme.shapes.sizeNormal)
                 .noIndicationClickable { navigationState.navigateUp() },
             model = painterResource(R.drawable.arrow_back)
         )

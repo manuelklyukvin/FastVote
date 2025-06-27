@@ -16,10 +16,18 @@ fun AppNavGraph(
         navController = localNavigationState.current.navController,
         startDestination = Routes.HomeBlock,
         enterTransition = Animations.enterTransition,
+        exitTransition = Animations.exitTransition,
+        popEnterTransition = Animations.enterTransition,
         popExitTransition = Animations.exitTransition
     ) {
-        homeNavGraph(homeScreen = homeScreen)
-        postVoteNavGraph(postVoteScreen = postVoteScreen)
-        profileNavGraph(profileScreen = profileScreen)
+        homeNavGraph(
+            homeScreen = homeScreen
+        )
+        postVoteNavGraph(
+            postVoteScreen = postVoteScreen
+        )
+        profileNavGraph(
+            profileScreen = profileScreen
+        )
     }
 }

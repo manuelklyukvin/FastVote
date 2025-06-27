@@ -28,9 +28,7 @@ fun AppCard(
                 shape = AppTheme.shapes.roundedCornerShape
             )
             .let {
-                if (areDefaultPaddingsEnabled) {
-                    it.padding(AppTheme.shapes.paddingMedium)
-                } else it
+                if (areDefaultPaddingsEnabled) it.padding(AppTheme.shapes.paddingNormal) else it
             },
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment,
@@ -53,8 +51,6 @@ private fun DarkAppCardPreview() {
 @Composable
 private fun AppCardPreview() {
     AppTheme {
-        AppCard(areDefaultPaddingsEnabled = true) {
-            AppLineText(text = "Preview")
-        }
+        AppCard { AppLineText(text = "Preview") }
     }
 }

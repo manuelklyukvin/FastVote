@@ -20,6 +20,8 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.MATERIAL)
 }
 
+fun DependencyHandler.coroutines() = implementation(Dependencies.COROUTINES)
+
 fun DependencyHandler.koin() {
     implementation(Dependencies.KOIN_CORE)
     implementation(Dependencies.KOIN_ANDROID)
@@ -34,8 +36,6 @@ fun DependencyHandler.retrofit() {
 fun DependencyHandler.serialization() = implementation(Dependencies.SERIALIZATION)
 
 fun DependencyHandler.navigation() = implementation(Dependencies.NAVIGATION_COMPOSE)
-
-fun DependencyHandler.coroutines() = implementation(Dependencies.COROUTINES)
 
 fun DependencyHandler.coil() = implementation(Dependencies.COIL)
 

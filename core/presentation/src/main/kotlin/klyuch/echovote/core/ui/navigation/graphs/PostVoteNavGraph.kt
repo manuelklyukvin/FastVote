@@ -6,7 +6,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import klyuch.echovote.core.ui.navigation.Routes
 
-fun NavGraphBuilder.postVoteNavGraph(postVoteScreen: @Composable () -> Unit) {
+fun NavGraphBuilder.postVoteNavGraph(
+    postVoteScreen: @Composable () -> Unit
+) {
     navigation<Routes.PostVoteBlock>(startDestination = Routes.PostVote) {
         composable<Routes.PostVote> { postVoteScreen() }
     }

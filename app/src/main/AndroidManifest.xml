@@ -12,7 +12,8 @@
         <activity
             android:name=".ui.screens.AppActivity"
             android:exported="true"
-            android:theme="@style/Theme.EchoVote.SplashScreen">
+            android:theme="@style/Theme.EchoVote.SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
