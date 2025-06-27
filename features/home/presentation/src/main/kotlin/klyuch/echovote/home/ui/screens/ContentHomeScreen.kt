@@ -88,6 +88,7 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
                     .fillMaxWidth()
                     .noIndicationClickable { onIntent(HomeIntent.OnMoreButtonClicked) },
                 text = stringResource(R.string.more_button),
+                style = AppTheme.typography.title,
                 color = AppTheme.colorScheme.primary,
                 textAlign = TextAlign.End
             )

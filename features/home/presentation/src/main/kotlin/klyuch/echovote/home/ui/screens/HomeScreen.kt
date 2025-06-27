@@ -52,21 +52,20 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 
 @Composable
 private fun SearchBar(state: HomeState, onIntent: (HomeIntent) -> Unit) {
-    Row(
-        modifier = Modifier.padding(AppTheme.shapes.screenPadding),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingNormal)
-    ) {
-        AppTextField(
-            modifier = Modifier.weight(1f),
-            state = state.searchState,
-            hint = stringResource(R.string.search_hint)
-        )
-        AppIcon(
-            modifier = Modifier
-                .size(AppTheme.shapes.sizeMedium)
-                .noIndicationClickable { onIntent(HomeIntent.OnSearchButtonClicked) },
-            model = painterResource(CoreR.drawable.search)
-        )
-    }
+    AppTextField(
+        modifier = Modifier.padding(
+            horizontal = AppTheme.shapes.screenPadding,
+            vertical = AppTheme.shapes.paddingSmall
+        ),
+        state = state.searchState,
+        hint = stringResource(R.string.search_hint),
+        trailingIcon = {
+            AppIcon(
+                modifier = Modifier
+                    .size(AppTheme.shapes.sizeSmall)
+                    .noIndicationClickable { onIntent(HomeIntent.OnSearchButtonClicked) },
+                model = painterResource(CoreR.drawable.search)
+            )
+        }
+    )
 }

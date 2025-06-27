@@ -4,21 +4,28 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import klyuch.echovote.core.R
 import klyuch.echovote.core.ui.components.AppCard
+import klyuch.echovote.core.ui.components.images.AppIcon
 import klyuch.echovote.core.ui.components.texts.AppLineText
 import klyuch.echovote.core.ui.theme.AppTheme
 
@@ -30,6 +37,7 @@ fun AppTextField(
     label: String? = null,
     hint: String? = null,
     error: String? = null,
+    trailingIcon: (@Composable () -> Unit)? = null,
     maxLength: Int? = null,
     keyboardType: KeyboardType = KeyboardType.Text
 ) {
@@ -43,6 +51,7 @@ fun AppTextField(
                 isPrimary = isPrimary,
                 hint = hint,
                 error = error,
+                trailingIcon = trailingIcon,
                 keyboardType = keyboardType
             )
         },
@@ -57,6 +66,7 @@ private fun TextField(
     isPrimary: Boolean,
     hint: String?,
     error: String?,
+    trailingIcon: (@Composable () -> Unit)?,
     keyboardType: KeyboardType
 ) {
     BasicTextField(
@@ -89,7 +99,8 @@ private fun TextField(
             Decorator(
                 state = state,
                 inputField = inputField,
-                hint = hint
+                hint = hint,
+                trailingIcon = trailingIcon
             )
         }
     )
@@ -99,14 +110,23 @@ private fun TextField(
 private fun Decorator(
     state: TextFieldState,
     inputField: @Composable () -> Unit,
-    hint: String?
+    hint: String?,
+    trailingIcon: (@Composable () -> Unit)?
 ) {
-    inputField()
-    if (state.text.isEmpty() && hint != null) {
-        AppLineText(
-            text = hint,
-            color = AppTheme.colorScheme.outline
-        )
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingNormal)
+    ) {
+        Box(modifier = Modifier.weight(1f)) {
+            inputField()
+            if (state.text.isEmpty() && hint != null) {
+                AppLineText(
+                    text = hint,
+                    color = AppTheme.colorScheme.outline
+                )
+            }
+        }
+        trailingIcon?.let { it() }
     }
 }
 
@@ -154,6 +174,15 @@ private fun PrimaryAppTextFieldPreview() {
                 state = TextFieldState(),
                 error = "Error"
             )
+            AppTextField(
+                state = TextFieldState(),
+                trailingIcon = {
+                    AppIcon(
+                        modifier = Modifier.size(AppTheme.shapes.sizeSmall),
+                        model = painterResource(R.drawable.search)
+                    )
+                }
+            )
         }
     }
 }
@@ -180,6 +209,16 @@ private fun SecondaryAppTextFieldPreview() {
                 isPrimary = false,
                 state = TextFieldState(),
                 error = "Error"
+            )
+            AppTextField(
+                isPrimary = false,
+                state = TextFieldState(),
+                trailingIcon = {
+                    AppIcon(
+                        modifier = Modifier.size(AppTheme.shapes.sizeSmall),
+                        model = painterResource(R.drawable.search)
+                    )
+                }
             )
         }
     }
