@@ -6,6 +6,7 @@ import coil.ImageLoaderFactory
 import coil.request.CachePolicy
 import klyuch.echovote.app.di.modules.coreModule
 import klyuch.echovote.app.di.modules.homeModule
+import klyuch.echovote.app.di.modules.votesModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -16,6 +17,7 @@ class App : Application(), ImageLoaderFactory {
             androidContext(this@App)
             modules(
                 coreModule,
+                votesModule,
                 homeModule
             )
         }

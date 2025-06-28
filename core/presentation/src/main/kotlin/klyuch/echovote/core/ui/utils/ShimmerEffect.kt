@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
 import klyuch.echovote.core.ui.theme.AppTheme
 
-internal fun Modifier.shimmerEffect() = composed {
+fun Modifier.shimmerEffect() = composed {
     val transition = rememberInfiniteTransition()
     val shimmerTransition by transition.animateFloat(
         initialValue = -1f,

@@ -98,7 +98,7 @@ private fun AppNavBarItem(
         )
         label?.let {
             AppLineText(
-                text = label,
+                text = it,
                 color = currentColor
             )
         }

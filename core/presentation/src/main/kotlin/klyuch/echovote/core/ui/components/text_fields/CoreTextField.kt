@@ -24,7 +24,9 @@ internal fun CoreTextField(
         val valueLength = state.text.length
 
         LaunchedEffect(valueLength) {
-            if (valueLength > maxLength) state.edit { delete(maxLength, valueLength) }
+            if (valueLength > it) {
+                state.edit { delete(it, valueLength) }
+            }
         }
     }
 
@@ -34,14 +36,14 @@ internal fun CoreTextField(
     ) {
         label?.let {
             AppLineText(
-                text = label,
+                text = it,
                 color = AppTheme.colorScheme.outline
             )
         }
         textField()
         error?.let {
             AppText(
-                text = error,
+                text = it,
                 color = AppTheme.colorScheme.error
             )
         }

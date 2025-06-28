@@ -24,20 +24,24 @@ fun AppButton(
     isPrimary: Boolean = true,
     content: @Composable (() -> Unit)? = null
 ) {
+    val alpha = 0.5f
+
     val containerColor: Color
     val contentColor: Color
+    val disabledContainerColor: Color
+    val disabledContentColor: Color
 
     if (isPrimary) {
         containerColor = AppTheme.colorScheme.primary
         contentColor = AppTheme.colorScheme.onPrimary
+        disabledContainerColor = containerColor.copy(alpha = alpha)
+        disabledContentColor = contentColor.copy(alpha = alpha)
     } else {
         containerColor = Color.Transparent
         contentColor = AppTheme.colorScheme.primary
+        disabledContainerColor = Color.Transparent
+        disabledContentColor = contentColor.copy(alpha = alpha)
     }
-
-    val alpha = 0.5f
-    val disabledContainerColor = containerColor.copy(alpha = alpha)
-    val disabledContentColor = contentColor.copy(alpha = alpha)
 
     Button(
         modifier = modifier,

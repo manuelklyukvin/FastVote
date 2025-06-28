@@ -4,6 +4,7 @@ import klyuch.echovote.build_src.dependencies.androidx
 import klyuch.echovote.build_src.dependencies.coil
 import klyuch.echovote.build_src.dependencies.compose
 import klyuch.echovote.build_src.dependencies.koin
+import klyuch.echovote.build_src.dependencies.retrofit
 import klyuch.echovote.build_src.dependencies.splashScreen
 import klyuch.echovote.build_src.modules.bundles.dataModules
 import klyuch.echovote.build_src.modules.bundles.domainModules
@@ -41,6 +42,7 @@ android {
 dependencies {
     androidx()
     compose()
+    retrofit()
     koin()
     coil()
     splashScreen()

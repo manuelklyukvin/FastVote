@@ -1,6 +1,6 @@
-package klyuch.echovote.home.models
+package klyuch.echovote.votes.models
 
-data class PresentationHomeUser(
+data class DomainVoteUser(
     val id: Long,
     val avatarUrl: String?,
     val name: String

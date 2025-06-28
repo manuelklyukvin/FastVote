@@ -47,7 +47,7 @@ private fun LightAppTopBarPreview() {
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun DarkMKTopBarPreview() {
+private fun DarkAppTopBarPreview() {
     AppTopBarPreview()
 }
 

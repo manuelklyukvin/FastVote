@@ -77,7 +77,7 @@ private fun TextField(
         showPasswordButtonTint = AppTheme.colorScheme.primary
     } else {
         textObfuscationMode = TextObfuscationMode.RevealLastTyped
-        showPasswordButtonTint = AppTheme.colorScheme.onSurface
+        showPasswordButtonTint = AppTheme.colorScheme.onBackground
     }
 
     BasicSecureTextField(

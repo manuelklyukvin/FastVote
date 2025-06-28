@@ -32,10 +32,10 @@ import klyuch.echovote.core.ui.components.texts.AppText
 import klyuch.echovote.core.ui.theme.AppTheme
 import klyuch.echovote.core.ui.utils.noIndicationClickable
 import klyuch.echovote.home.R
-import klyuch.echovote.home.models.PresentationHomeUser
-import klyuch.echovote.home.models.PresentationVote
 import klyuch.echovote.home.ui.view_models.models.HomeIntent
 import klyuch.echovote.home.ui.view_models.models.HomeState
+import klyuch.echovote.votes.models.PresentationVote
+import klyuch.echovote.votes.models.PresentationVoteUser
 import klyuch.echovote.core.R as CoreR
 
 @Composable
@@ -59,12 +59,11 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
         modifier = Modifier.fillMaxWidth(),
         areDefaultPaddingsEnabled = false
     ) {
-        // TODO Тестовая логика
         vote.imageUrl?.let {
             AppImage(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp)
+                    .height(200.dp)
                     .clip(AppTheme.shapes.roundedCornerShape),
                 model = painterResource(R.drawable.img),
                 contentScale = ContentScale.Crop
@@ -74,7 +73,7 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
             modifier = Modifier.padding(AppTheme.shapes.paddingNormal),
             verticalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingExtraSmall)
         ) {
-            HomeUser(vote.homeUser, onIntent)
+            VoteUser(vote.voteUser, onIntent)
             AppText(
                 text = vote.title,
                 style = AppTheme.typography.headline
@@ -88,7 +87,6 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
                     .fillMaxWidth()
                     .noIndicationClickable { onIntent(HomeIntent.OnMoreButtonClicked) },
                 text = stringResource(R.string.more_button),
-                style = AppTheme.typography.title,
                 color = AppTheme.colorScheme.primary,
                 textAlign = TextAlign.End
             )
@@ -98,28 +96,28 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
 }
 
 @Composable
-private fun HomeUser(homeUser: PresentationHomeUser, onIntent: (HomeIntent) -> Unit) {
+private fun VoteUser(voteUser: PresentationVoteUser, onIntent: (HomeIntent) -> Unit) {
     Row(
-        modifier = Modifier.noIndicationClickable { onIntent(HomeIntent.OnUserClicked(homeUser.id)) },
+        modifier = Modifier.noIndicationClickable { onIntent(HomeIntent.OnUserClicked(voteUser.id)) },
         horizontalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingExtraSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (homeUser.avatarUrl != null) {
+        if (voteUser.avatarUrl != null) {
             AppImage(
                 modifier = Modifier
-                    .size(AppTheme.shapes.sizeNormal)
+                    .size(AppTheme.shapes.sizeMedium)
                     .clip(RoundedCornerShape(100)),
-                model = homeUser.avatarUrl,
+                model = voteUser.avatarUrl!!,
                 contentScale = ContentScale.Crop
             )
         } else {
             AppIcon(
-                modifier = Modifier.size(AppTheme.shapes.sizeNormal),
+                modifier = Modifier.size(AppTheme.shapes.sizeMedium),
                 model = painterResource(CoreR.drawable.profile)
             )
         }
         AppLineText(
-            text = homeUser.name,
+            text = voteUser.name,
             style = AppTheme.typography.title,
             color = AppTheme.colorScheme.primary
         )
@@ -163,7 +161,19 @@ private fun ContentHomeScreenPreview() {
             color = AppTheme.colorScheme.background
         ) {
             ContentHomeScreen(
-                state = HomeState(),
+                state = HomeState(
+                    votes = List(5) {
+                        PresentationVote(
+                            id = 0,
+                            imageUrl = null,
+                            voteUser = PresentationVoteUser(0, null, "User"),
+                            title = "Title title title",
+                            description = "Description description description description description",
+                            tags = listOf("tag", "tag", "tag"),
+                            answers = emptyList(),
+                        )
+                    }
+                ),
                 onIntent = { }
             )
         }

@@ -4,11 +4,15 @@ val app = ":app"
 val core = ":core"
 val features = ":features"
 
+val votes = "$features:votes"
+
 val home = "$features:home"
 
 include(app)
 include(*modules(core))
 include(features)
+
+include(*modules(votes))
 
 include(*modules(home))
 

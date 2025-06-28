@@ -1,6 +1,8 @@
 import klyuch.echovote.build_src.configs.GradleNamespaces
 import klyuch.echovote.build_src.gradle_plugins.DataGradlePlugin
 import klyuch.echovote.build_src.modules.homeDomain
+import klyuch.echovote.build_src.modules.votesData
+import klyuch.echovote.build_src.modules.votesDomain
 
 apply<DataGradlePlugin>()
 
@@ -15,4 +17,7 @@ android {
 
 dependencies {
     homeDomain()
+
+    votesData()
+    votesDomain()
 }

@@ -32,6 +32,10 @@
             <option value="$PROJECT_DIR$/features/home/data" />
             <option value="$PROJECT_DIR$/features/home/domain" />
             <option value="$PROJECT_DIR$/features/home/presentation" />
+            <option value="$PROJECT_DIR$/features/votes" />
+            <option value="$PROJECT_DIR$/features/votes/data" />
+            <option value="$PROJECT_DIR$/features/votes/domain" />
+            <option value="$PROJECT_DIR$/features/votes/presentation" />
           </set>
         </option>
       </GradleProjectSettings>
