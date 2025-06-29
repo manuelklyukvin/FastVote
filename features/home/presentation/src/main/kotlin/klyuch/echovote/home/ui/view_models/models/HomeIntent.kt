@@ -8,4 +8,5 @@ sealed class HomeIntent : AppIntent() {
     data class OnUserClicked(val userId: Long) : HomeIntent()
     data object OnMoreButtonClicked : HomeIntent()
     data class OnTagClicked(val tag: String) : HomeIntent()
+    data object OnRetryButtonClicked : HomeIntent()
 }

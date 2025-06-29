@@ -2,4 +2,6 @@
 <resources>
     <string name="home_nav_button">Home</string>
     <string name="profile_nav_button">Profile</string>
+
+    <string name="retry_button">Retry</string>
 </resources>

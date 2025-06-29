@@ -3,6 +3,7 @@ package klyuch.echovote.home.ui.view_models
 import androidx.lifecycle.viewModelScope
 import klyuch.echovote.core.ui.view_models.AppViewModel
 import klyuch.echovote.core.ui.view_models.models.AppViewState
+import klyuch.echovote.core.utils.operations.mappers.OperationErrorMapper
 import klyuch.echovote.core.utils.operations.models.OperationResult
 import klyuch.echovote.home.ui.view_models.models.HomeIntent
 import klyuch.echovote.home.ui.view_models.models.HomeState
@@ -12,7 +13,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val getVotesUseCase: GetVotesUseCase
+    private val getVotesUseCase: GetVotesUseCase,
+    private val operationErrorMapper: OperationErrorMapper
 ) : AppViewModel<HomeState, HomeIntent>(HomeState()) {
     private var getVotesJob: Job? = null
 
@@ -22,6 +24,7 @@ class HomeViewModel(
         is HomeIntent.OnUserClicked -> onUserClicked(intent.userId)
         HomeIntent.OnMoreButtonClicked -> onMoreButtonClicked()
         is HomeIntent.OnTagClicked -> onTagClicked(intent.tag)
+        HomeIntent.OnRetryButtonClicked -> onRetryButtonClicked()
     }
 
     private fun onScreenOpened() = withLoadingState {
@@ -33,12 +36,14 @@ class HomeViewModel(
                     is OperationResult.Success -> update {
                         copy(
                             viewState = AppViewState.CONTENT,
-                            votes = result.data.map { vote -> vote.toPresentation() }
+                            votes = result.data.map { vote -> vote.toPresentation() },
+                            errorResId = null
                         )
                     }
                     is OperationResult.Error -> update {
                         copy(
-                            viewState = AppViewState.ERROR
+                            viewState = AppViewState.ERROR,
+                            errorResId = operationErrorMapper.mapToResId(result.error)
                         )
                     }
                 }
@@ -53,6 +58,11 @@ class HomeViewModel(
     private fun onMoreButtonClicked() = withContentState {  }
 
     private fun onTagClicked(tag: String) = withContentState {  }
+
+    private fun onRetryButtonClicked() = withErrorState {
+        update { copy(viewState = AppViewState.LOADING) }
+        onScreenOpened()
+    }
 
     override fun onCleared() {
         super.onCleared()

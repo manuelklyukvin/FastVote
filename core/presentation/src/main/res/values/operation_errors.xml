@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="operation_error_network">No internet connection</string>
+    <string name="operation_error_server_unavailable">Server is not available now</string>
+    <string name="operation_error_bad_request">Bad request</string>
+    <string name="operation_error_not_found">Not found</string>
+    <string name="operation_error_internal">Internal server error, please try again</string>
+    <string name="operation_error_unknown">Something went wrong, please try again</string>
+</resources>

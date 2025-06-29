@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import klyuch.echovote.core.ui.components.images.AppIcon
 import klyuch.echovote.core.ui.components.text_fields.AppTextField
+import klyuch.echovote.core.ui.screens.AppErrorScreen
 import klyuch.echovote.core.ui.theme.AppTheme
 import klyuch.echovote.core.ui.utils.noIndicationClickable
 import klyuch.echovote.core.ui.view_models.models.AppViewState
@@ -37,7 +38,10 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
         when (state.viewState) {
             AppViewState.LOADING -> LoadingHomeScreen()
             AppViewState.CONTENT -> ContentHomeScreen(state, onIntent)
-            AppViewState.ERROR -> Unit
+            AppViewState.ERROR -> AppErrorScreen(
+                error = state.errorResId,
+                onRetryButtonClicked = { onIntent(HomeIntent.OnRetryButtonClicked) }
+            )
         }
     }
 }

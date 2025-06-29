@@ -57,7 +57,7 @@ fun AppButton(
         border = if (isPrimary) null else BorderStroke(1.dp, contentColor),
         contentPadding = PaddingValues(
             horizontal = AppTheme.shapes.paddingExtraLarge,
-            vertical = AppTheme.shapes.paddingMedium
+            vertical = AppTheme.shapes.paddingNormal
         )
     ) {
         if (text != null) {

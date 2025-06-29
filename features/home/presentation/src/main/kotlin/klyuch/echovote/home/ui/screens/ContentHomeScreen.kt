@@ -73,20 +73,8 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingExtraSmall)
         ) {
             VoteUser(vote.voteUser, onIntent)
-            AppText(
-                text = vote.title,
-                style = AppTheme.typography.headline
-            )
-            AppText(
-                text = vote.description,
-                maxLines = 3
-            )
-            AppLineText(
-                modifier = Modifier.noIndicationClickable { onIntent(HomeIntent.OnMoreButtonClicked) },
-                text = stringResource(R.string.more_button),
-                color = AppTheme.colorScheme.primary
-            )
-            Tags(vote.tags, onIntent)
+            VoteText(vote, onIntent)
+            VoteTags(vote.tags, onIntent)
         }
     }
 }
@@ -121,7 +109,24 @@ private fun VoteUser(voteUser: PresentationVoteUser, onIntent: (HomeIntent) -> U
 }
 
 @Composable
-private fun Tags(tags: List<String>, onIntent: (HomeIntent) -> Unit) {
+private fun VoteText(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
+    AppText(
+        text = vote.title,
+        style = AppTheme.typography.headline
+    )
+    AppText(
+        text = vote.description,
+        maxLines = 3
+    )
+    AppLineText(
+        modifier = Modifier.noIndicationClickable { onIntent(HomeIntent.OnMoreButtonClicked) },
+        text = stringResource(R.string.more_button),
+        color = AppTheme.colorScheme.primary
+    )
+}
+
+@Composable
+private fun VoteTags(tags: List<String>, onIntent: (HomeIntent) -> Unit) {
     FlowRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingSmall),
