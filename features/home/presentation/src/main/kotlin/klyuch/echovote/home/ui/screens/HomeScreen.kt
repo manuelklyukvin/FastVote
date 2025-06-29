@@ -1,6 +1,5 @@
 package klyuch.echovote.home.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -29,15 +28,11 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
     val state by viewModel.state.collectAsState()
     val onIntent = viewModel::onIntent
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(true) {
         onIntent(HomeIntent.OnScreenOpened)
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppTheme.colorScheme.background)
-    ) {
+    Column(modifier = Modifier.fillMaxSize()) {
         SearchBar(state, onIntent)
         when (state.viewState) {
             AppViewState.LOADING -> LoadingHomeScreen()

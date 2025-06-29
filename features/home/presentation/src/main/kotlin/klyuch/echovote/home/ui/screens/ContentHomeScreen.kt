@@ -21,7 +21,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import klyuch.echovote.core.ui.components.AppCard
@@ -83,12 +82,9 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
                 maxLines = 3
             )
             AppLineText(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .noIndicationClickable { onIntent(HomeIntent.OnMoreButtonClicked) },
+                modifier = Modifier.noIndicationClickable { onIntent(HomeIntent.OnMoreButtonClicked) },
                 text = stringResource(R.string.more_button),
-                color = AppTheme.colorScheme.primary,
-                textAlign = TextAlign.End
+                color = AppTheme.colorScheme.primary
             )
             Tags(vote.tags, onIntent)
         }

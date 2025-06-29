@@ -28,15 +28,19 @@ class HomeViewModel(
         getVotesJob?.cancel()
 
         getVotesJob = viewModelScope.launch {
-            when (val result = getVotesUseCase()) {
-                is OperationResult.Success -> update {
-                    copy(
-                        viewState = AppViewState.CONTENT,
-                        votes = result.data.map { it.toPresentation() }
-                    )
-                }
-                is OperationResult.Error -> update {
-                    copy(viewState = AppViewState.ERROR)
+            getVotesUseCase().collect { result ->
+                when (result) {
+                    is OperationResult.Success -> update {
+                        copy(
+                            viewState = AppViewState.CONTENT,
+                            votes = result.data.map { vote -> vote.toPresentation() }
+                        )
+                    }
+                    is OperationResult.Error -> update {
+                        copy(
+                            viewState = AppViewState.ERROR
+                        )
+                    }
                 }
             }
         }
