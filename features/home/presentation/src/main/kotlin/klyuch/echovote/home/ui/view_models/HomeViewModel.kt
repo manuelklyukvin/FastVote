@@ -51,13 +51,13 @@ class HomeViewModel(
         }
     }
 
-    private fun onSearchButtonClicked() = withContentState {  }
+    private fun onSearchButtonClicked() = withContentState { }
 
-    private fun onUserClicked(userId: Long) = withContentState {  }
+    private fun onUserClicked(userId: Long) = withContentState { }
 
-    private fun onMoreButtonClicked() = withContentState {  }
+    private fun onMoreButtonClicked() = withContentState { }
 
-    private fun onTagClicked(tag: String) = withContentState {  }
+    private fun onTagClicked(tag: String) = withContentState { }
 
     private fun onRetryButtonClicked() = withErrorState {
         update { copy(viewState = AppViewState.LOADING) }

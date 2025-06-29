@@ -34,7 +34,19 @@ class VotesRepositoryImpl(private val remoteVotesDataSource: RemoteVotesDataSour
                 defaultVote,
                 defaultVote.copy(imageUrl = ""),
                 defaultVote.copy(imageUrl = ""),
-                defaultVote.copy(tags = listOf("семья", "дети", "крепкийбрак", "дом", "любовь", "патриархат", "MANMANMAN", "хочувреки", "попес")),
+                defaultVote.copy(
+                    tags = listOf(
+                        "семья",
+                        "дети",
+                        "крепкийбрак",
+                        "дом",
+                        "любовь",
+                        "патриархат",
+                        "MANMANMAN",
+                        "хочувреки",
+                        "попес"
+                    )
+                ),
                 defaultVote.copy(imageUrl = ""),
             ).map { it.toDomain() }
         )
