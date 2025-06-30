@@ -1,10 +1,13 @@
 package klyuch.echovote.home.ui.screens
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import klyuch.echovote.core.ui.components.AppCard
@@ -33,6 +37,7 @@ import klyuch.echovote.core.ui.utils.noIndicationClickable
 import klyuch.echovote.home.R
 import klyuch.echovote.home.ui.view_models.models.HomeIntent
 import klyuch.echovote.home.ui.view_models.models.HomeState
+import klyuch.echovote.votes.models.PresentationAnswer
 import klyuch.echovote.votes.models.PresentationVote
 import klyuch.echovote.votes.models.PresentationVoteUser
 import klyuch.echovote.core.R as CoreR
@@ -68,13 +73,14 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
                 contentScale = ContentScale.Crop
             )
         }
-        Column(
-            modifier = Modifier.padding(AppTheme.shapes.paddingNormal),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingExtraSmall)
-        ) {
+        Column(modifier = Modifier.padding(AppTheme.shapes.paddingNormal)) {
             VoteUser(vote.voteUser, onIntent)
+            Spacer(Modifier.height(AppTheme.shapes.paddingExtraSmall))
             VoteText(vote, onIntent)
+            Spacer(Modifier.height(AppTheme.shapes.paddingExtraSmall))
             VoteTags(vote.tags, onIntent)
+            Spacer(Modifier.height(AppTheme.shapes.paddingNormal))
+            VoteAnswers(vote.answers, onIntent)
         }
     }
 }
@@ -114,14 +120,18 @@ private fun VoteText(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
         text = vote.title,
         style = AppTheme.typography.headline
     )
+    Spacer(Modifier.height(AppTheme.shapes.paddingExtraSmall))
     AppText(
         text = vote.description,
         maxLines = 3
     )
     AppLineText(
-        modifier = Modifier.noIndicationClickable { onIntent(HomeIntent.OnMoreButtonClicked) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .noIndicationClickable { onIntent(HomeIntent.OnMoreButtonClicked) },
         text = stringResource(R.string.more_button),
-        color = AppTheme.colorScheme.primary
+        color = AppTheme.colorScheme.primary,
+        textAlign = TextAlign.End
     )
 }
 
@@ -138,6 +148,27 @@ private fun VoteTags(tags: List<String>, onIntent: (HomeIntent) -> Unit) {
                 text = "#$it",
                 color = AppTheme.colorScheme.primary
             )
+        }
+    }
+}
+
+@Composable
+private fun VoteAnswers(answers: List<PresentationAnswer>, onIntent: (HomeIntent) -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingSmall)) {
+        answers.forEach {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(100))
+                    .background(AppTheme.colorScheme.background)
+                    .padding(
+                        vertical = AppTheme.shapes.paddingNormal,
+                        horizontal = AppTheme.shapes.paddingMedium
+                    )
+                    .noIndicationClickable { onIntent(HomeIntent.OnAnswerClicked(it)) }
+            ) {
+                AppLineText(text = it.name)
+            }
         }
     }
 }
@@ -171,7 +202,7 @@ private fun ContentHomeScreenPreview() {
                             title = "Title title title",
                             description = "Description description description description description",
                             tags = listOf("tag", "tag", "tag"),
-                            answers = emptyList(),
+                            answers = List(3) { PresentationAnswer(0, "Yes", 10) },
                         )
                     }
                 ),
