@@ -11,6 +11,7 @@ internal object Dependencies {
     const val UI_TOOLING = "androidx.compose.ui:ui-tooling"
     const val UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview"
     const val MATERIAL = "androidx.compose.material3:material3:${DependencyVersions.MATERIAL}"
+    const val EXTENDABLE_TEXT = "io.github.dokar3:expandabletext:${DependencyVersions.EXTENDABLE_TEXT}"
 
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.COROUTINES}"
 

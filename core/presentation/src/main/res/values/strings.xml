@@ -4,4 +4,7 @@
     <string name="profile_nav_button">Profile</string>
 
     <string name="retry_button">Retry</string>
+
+    <string name="show_more_button">Show more</string>
+    <string name="show_less_button">Show less</string>
 </resources>

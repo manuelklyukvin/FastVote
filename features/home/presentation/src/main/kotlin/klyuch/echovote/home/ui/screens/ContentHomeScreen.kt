@@ -2,7 +2,6 @@ package klyuch.echovote.home.ui.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -23,13 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import klyuch.echovote.core.ui.components.AppCard
 import klyuch.echovote.core.ui.components.images.AppIcon
 import klyuch.echovote.core.ui.components.images.AppImage
+import klyuch.echovote.core.ui.components.texts.AppExpandableText
 import klyuch.echovote.core.ui.components.texts.AppLineText
 import klyuch.echovote.core.ui.components.texts.AppText
 import klyuch.echovote.core.ui.theme.AppTheme
@@ -73,13 +71,14 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
                 contentScale = ContentScale.Crop
             )
         }
-        Column(modifier = Modifier.padding(AppTheme.shapes.paddingNormal)) {
+        Column(
+            modifier = Modifier.padding(AppTheme.shapes.paddingNormal),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingExtraSmall)
+        ) {
             VoteUser(vote.voteUser, onIntent)
-            Spacer(Modifier.height(AppTheme.shapes.paddingExtraSmall))
-            VoteText(vote, onIntent)
-            Spacer(Modifier.height(AppTheme.shapes.paddingExtraSmall))
+            VoteText(vote)
             VoteTags(vote.tags, onIntent)
-            Spacer(Modifier.height(AppTheme.shapes.paddingNormal))
+            Spacer(Modifier.height(AppTheme.shapes.paddingSmall))
             VoteAnswers(vote.answers, onIntent)
         }
     }
@@ -115,23 +114,14 @@ private fun VoteUser(voteUser: PresentationVoteUser, onIntent: (HomeIntent) -> U
 }
 
 @Composable
-private fun VoteText(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
+private fun VoteText(vote: PresentationVote) {
     AppText(
         text = vote.title,
         style = AppTheme.typography.headline
     )
-    Spacer(Modifier.height(AppTheme.shapes.paddingExtraSmall))
-    AppText(
+    AppExpandableText(
         text = vote.description,
         maxLines = 3
-    )
-    AppLineText(
-        modifier = Modifier
-            .fillMaxWidth()
-            .noIndicationClickable { onIntent(HomeIntent.OnMoreButtonClicked) },
-        text = stringResource(R.string.more_button),
-        color = AppTheme.colorScheme.primary,
-        textAlign = TextAlign.End
     )
 }
 

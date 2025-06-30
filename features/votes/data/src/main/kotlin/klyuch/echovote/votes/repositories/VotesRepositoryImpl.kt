@@ -21,7 +21,7 @@ class VotesRepositoryImpl(private val remoteVotesDataSource: RemoteVotesDataSour
                 name = "User"
             ),
             title = "Стоит ли мне перестать бить жену и детей?",
-            description = "Тут я типо описываю всю ситуацию, чтобы юзеры смогли прочитать и проголосовать, а еще надо побольше текста, чтобы понять, как оно будет выглядеть Тут я типо описываю всю ситуацию, чтобы юзеры смогли прочитать и проголосовать, а еще надо побольше текста, чтобы понять, как оно будет выглядеть",
+            description = "Тут я типо описываю всю ситуацию, чтобы юзеры смогли прочитать и проголосовать, а еще надо побольше текста, чтобы понять, как оно будет выглядеть",
             tags = listOf("семья", "дом", "дети"),
             answers = listOf(
                 DataAnswer(0, "Нет", 100),
@@ -31,8 +31,8 @@ class VotesRepositoryImpl(private val remoteVotesDataSource: RemoteVotesDataSour
 
         emit(
             listOf(
-                defaultVote,
-                defaultVote.copy(imageUrl = ""),
+                defaultVote.copy(description = "Описание в одну строку"),
+                defaultVote.copy(imageUrl = "", description = defaultVote.description + defaultVote.description + defaultVote.description),
                 defaultVote.copy(imageUrl = ""),
                 defaultVote.copy(
                     tags = listOf(

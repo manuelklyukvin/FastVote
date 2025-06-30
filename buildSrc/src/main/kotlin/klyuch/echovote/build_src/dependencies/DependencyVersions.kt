@@ -7,6 +7,7 @@ internal object DependencyVersions {
     const val ACTIVITY_COMPOSE = "1.10.1"
     const val COMPOSE_BOM = "2025.06.01"
     const val MATERIAL = "1.3.2"
+    const val EXTENDABLE_TEXT = "0.4.0"
 
     const val COROUTINES = "1.10.2"
 

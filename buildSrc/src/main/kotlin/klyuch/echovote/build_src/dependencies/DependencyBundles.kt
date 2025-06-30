@@ -18,6 +18,7 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.UI_TOOLING)
     implementation(Dependencies.UI_TOOLING_PREVIEW)
     implementation(Dependencies.MATERIAL)
+    implementation(Dependencies.EXTENDABLE_TEXT)
 }
 
 fun DependencyHandler.coroutines() = implementation(Dependencies.COROUTINES)
