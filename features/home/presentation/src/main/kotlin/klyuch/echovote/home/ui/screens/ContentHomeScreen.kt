@@ -1,8 +1,10 @@
 package klyuch.echovote.home.ui.screens
 
 import android.content.res.Configuration
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -17,13 +19,21 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import klyuch.echovote.core.ui.components.AppButton
 import klyuch.echovote.core.ui.components.AppCard
 import klyuch.echovote.core.ui.components.images.AppIcon
 import klyuch.echovote.core.ui.components.images.AppImage
@@ -78,9 +88,9 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
             VoteUser(vote.voteUser, onIntent)
             VoteText(vote)
             VoteTags(vote.tags, onIntent)
-            Spacer(Modifier.height(AppTheme.shapes.paddingSmall))
-            VoteAnswers(vote.answers, onIntent)
         }
+        Spacer(Modifier.height(AppTheme.shapes.paddingSmall))
+        VoteAnswers(vote.answers, onIntent)
     }
 }
 
@@ -144,22 +154,70 @@ private fun VoteTags(tags: List<String>, onIntent: (HomeIntent) -> Unit) {
 
 @Composable
 private fun VoteAnswers(answers: List<PresentationAnswer>, onIntent: (HomeIntent) -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingSmall)) {
-        answers.forEach {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(100))
-                    .background(AppTheme.colorScheme.background)
-                    .padding(
-                        vertical = AppTheme.shapes.paddingNormal,
-                        horizontal = AppTheme.shapes.paddingMedium
-                    )
-                    .noIndicationClickable { onIntent(HomeIntent.OnAnswerClicked(it)) }
-            ) {
-                AppLineText(text = it.name)
+    var isExpanded by remember { mutableStateOf(answers.size < 2) }
+
+    val visibleAnswers = if (isExpanded) answers else answers.take(2)
+
+    Box(contentAlignment = Alignment.BottomCenter) {
+        Column(
+            modifier = Modifier
+                .padding(
+                    start = AppTheme.shapes.paddingNormal,
+                    end = AppTheme.shapes.paddingNormal,
+                    bottom = AppTheme.shapes.paddingNormal
+                )
+                .animateContentSize(),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingSmall)
+        ) {
+            visibleAnswers.forEach {
+                VoteAnswer(
+                    answer = it,
+                    onClick = {
+                        if (isExpanded) {
+                            onIntent(HomeIntent.OnAnswerClicked(it))
+                        }
+                    }
+                )
             }
         }
+        if (!isExpanded && answers.size > 2) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .clip(AppTheme.shapes.roundedCornerShape)
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                AppTheme.colorScheme.background
+                            )
+                        )
+                    )
+            )
+            AppButton(
+                modifier = Modifier.padding(bottom = AppTheme.shapes.paddingNormal),
+                text = stringResource(R.string.show_all_options),
+                onClick = { isExpanded = true }
+            )
+        }
+    }
+}
+
+@Composable
+private fun VoteAnswer(answer: PresentationAnswer, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(100))
+            .background(AppTheme.colorScheme.background)
+            .padding(
+                vertical = AppTheme.shapes.paddingNormal,
+                horizontal = AppTheme.shapes.paddingMedium
+            )
+            .noIndicationClickable(onClick)
+    ) {
+        AppLineText(text = answer.name)
     }
 }
 

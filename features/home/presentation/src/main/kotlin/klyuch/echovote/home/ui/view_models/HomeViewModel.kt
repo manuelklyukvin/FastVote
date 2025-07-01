@@ -23,7 +23,6 @@ class HomeViewModel(
         HomeIntent.OnScreenOpened -> onScreenOpened()
         HomeIntent.OnSearchButtonClicked -> onSearchButtonClicked()
         is HomeIntent.OnUserClicked -> onUserClicked(intent.userId)
-        HomeIntent.OnMoreButtonClicked -> onMoreButtonClicked()
         is HomeIntent.OnTagClicked -> onTagClicked(intent.tag)
         is HomeIntent.OnAnswerClicked -> onAnswerClicked(intent.answer)
         HomeIntent.OnRetryButtonClicked -> onRetryButtonClicked()
@@ -56,8 +55,6 @@ class HomeViewModel(
     private fun onSearchButtonClicked() = withContentState { }
 
     private fun onUserClicked(userId: Long) = withContentState { }
-
-    private fun onMoreButtonClicked() = withContentState { }
 
     private fun onTagClicked(tag: String) = withContentState { }
 

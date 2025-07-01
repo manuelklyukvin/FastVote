@@ -33,7 +33,7 @@ class VotesRepositoryImpl(private val remoteVotesDataSource: RemoteVotesDataSour
             listOf(
                 defaultVote.copy(description = "Описание в одну строку"),
                 defaultVote.copy(imageUrl = "", description = defaultVote.description + defaultVote.description + defaultVote.description),
-                defaultVote.copy(imageUrl = ""),
+                defaultVote.copy(imageUrl = "", answers = defaultVote.answers + DataAnswer(2, "Хз братан", 50)),
                 defaultVote.copy(
                     tags = listOf(
                         "семья",
