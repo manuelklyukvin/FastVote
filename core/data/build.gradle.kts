@@ -1,8 +1,8 @@
-import klyuch.echovote.build_src.configs.GradleNamespaces
-import klyuch.echovote.build_src.configs.GradleVersions
-import klyuch.echovote.build_src.dependencies.retrofit
-import klyuch.echovote.build_src.dependencies.testing
-import klyuch.echovote.build_src.modules.coreDomain
+import klyuch.fastvote.build_src.configs.GradleNamespaces
+import klyuch.fastvote.build_src.configs.GradleVersions
+import klyuch.fastvote.build_src.dependencies.retrofit
+import klyuch.fastvote.build_src.dependencies.testing
+import klyuch.fastvote.build_src.modules.coreDomain
 
 plugins {
     alias(libs.plugins.android.library)

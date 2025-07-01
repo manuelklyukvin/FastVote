@@ -1,8 +1,8 @@
-import klyuch.echovote.build_src.configs.GradleNamespaces
-import klyuch.echovote.build_src.gradle_plugins.PresentationGradlePlugin
-import klyuch.echovote.build_src.modules.homeDomain
-import klyuch.echovote.build_src.modules.votesDomain
-import klyuch.echovote.build_src.modules.votesPresentation
+import klyuch.fastvote.build_src.configs.GradleNamespaces
+import klyuch.fastvote.build_src.gradle_plugins.PresentationGradlePlugin
+import klyuch.fastvote.build_src.modules.homeDomain
+import klyuch.fastvote.build_src.modules.votesDomain
+import klyuch.fastvote.build_src.modules.votesPresentation
 
 apply<PresentationGradlePlugin>()
 

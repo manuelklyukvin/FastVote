@@ -1,4 +1,4 @@
-rootProject.name = "EchoVote"
+rootProject.name = "FastVote"
 
 val app = ":app"
 val core = ":core"

@@ -1,5 +1,5 @@
-import klyuch.echovote.build_src.gradle_plugins.DomainGradlePlugin
-import klyuch.echovote.build_src.modules.votesDomain
+import klyuch.fastvote.build_src.gradle_plugins.DomainGradlePlugin
+import klyuch.fastvote.build_src.modules.votesDomain
 
 apply<DomainGradlePlugin>()
 

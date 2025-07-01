@@ -1,0 +1,63 @@
+package klyuch.fastvote.home.ui.screens
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import klyuch.fastvote.core.ui.components.images.AppIcon
+import klyuch.fastvote.core.ui.components.text_fields.AppTextField
+import klyuch.fastvote.core.ui.screens.AppErrorScreen
+import klyuch.fastvote.core.ui.theme.AppTheme
+import klyuch.fastvote.core.ui.utils.noIndicationClickable
+import klyuch.fastvote.core.ui.view_models.models.AppViewState
+import klyuch.fastvote.home.R
+import klyuch.fastvote.home.ui.view_models.HomeViewModel
+import klyuch.fastvote.home.ui.view_models.models.HomeIntent
+import klyuch.fastvote.home.ui.view_models.models.HomeState
+import klyuch.fastvote.core.R as CoreR
+
+@Composable
+fun HomeScreen(viewModel: HomeViewModel) {
+    val state by viewModel.state.collectAsState()
+    val onIntent = viewModel::onIntent
+
+    LaunchedEffect(true) {
+        onIntent(HomeIntent.OnScreenOpened)
+    }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        SearchBar(state, onIntent)
+        when (state.viewState) {
+            AppViewState.LOADING -> LoadingHomeScreen()
+            AppViewState.CONTENT -> ContentHomeScreen(state, onIntent)
+            AppViewState.ERROR -> AppErrorScreen(
+                error = state.errorResId,
+                onRetryButtonClicked = { onIntent(HomeIntent.OnRetryButtonClicked) }
+            )
+        }
+    }
+}
+
+@Composable
+private fun SearchBar(state: HomeState, onIntent: (HomeIntent) -> Unit) {
+    AppTextField(
+        modifier = Modifier.padding(AppTheme.shapes.screenPadding),
+        state = state.searchState,
+        hint = stringResource(R.string.search_hint),
+        trailingIcon = {
+            AppIcon(
+                modifier = Modifier
+                    .size(AppTheme.shapes.sizeSmall)
+                    .noIndicationClickable { onIntent(HomeIntent.OnSearchButtonClicked) },
+                model = painterResource(CoreR.drawable.search)
+            )
+        }
+    )
+}

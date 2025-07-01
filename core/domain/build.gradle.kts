@@ -1,4 +1,4 @@
-import klyuch.echovote.build_src.dependencies.testing
+import klyuch.fastvote.build_src.dependencies.testing
 
 plugins {
     alias(libs.plugins.jvm)

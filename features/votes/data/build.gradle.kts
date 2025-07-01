@@ -1,6 +1,6 @@
-import klyuch.echovote.build_src.configs.GradleNamespaces
-import klyuch.echovote.build_src.gradle_plugins.DataGradlePlugin
-import klyuch.echovote.build_src.modules.votesDomain
+import klyuch.fastvote.build_src.configs.GradleNamespaces
+import klyuch.fastvote.build_src.gradle_plugins.DataGradlePlugin
+import klyuch.fastvote.build_src.modules.votesDomain
 
 apply<DataGradlePlugin>()
 

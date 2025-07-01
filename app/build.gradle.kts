@@ -1,14 +1,14 @@
-import klyuch.echovote.build_src.configs.GradleNamespaces
-import klyuch.echovote.build_src.configs.GradleVersions
-import klyuch.echovote.build_src.dependencies.androidx
-import klyuch.echovote.build_src.dependencies.coil
-import klyuch.echovote.build_src.dependencies.compose
-import klyuch.echovote.build_src.dependencies.koin
-import klyuch.echovote.build_src.dependencies.retrofit
-import klyuch.echovote.build_src.dependencies.splashScreen
-import klyuch.echovote.build_src.modules.bundles.dataModules
-import klyuch.echovote.build_src.modules.bundles.domainModules
-import klyuch.echovote.build_src.modules.bundles.presentationModules
+import klyuch.fastvote.build_src.configs.GradleNamespaces
+import klyuch.fastvote.build_src.configs.GradleVersions
+import klyuch.fastvote.build_src.dependencies.androidx
+import klyuch.fastvote.build_src.dependencies.coil
+import klyuch.fastvote.build_src.dependencies.compose
+import klyuch.fastvote.build_src.dependencies.koin
+import klyuch.fastvote.build_src.dependencies.retrofit
+import klyuch.fastvote.build_src.dependencies.splashScreen
+import klyuch.fastvote.build_src.modules.bundles.dataModules
+import klyuch.fastvote.build_src.modules.bundles.domainModules
+import klyuch.fastvote.build_src.modules.bundles.presentationModules
 
 plugins {
     alias(libs.plugins.android.application)

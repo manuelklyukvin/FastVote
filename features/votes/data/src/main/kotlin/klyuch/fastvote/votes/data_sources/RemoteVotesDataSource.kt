@@ -1,0 +1,3 @@
+package klyuch.fastvote.votes.data_sources
+
+interface RemoteVotesDataSource

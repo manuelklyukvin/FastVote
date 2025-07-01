@@ -1,4 +1,4 @@
-import klyuch.echovote.build_src.gradle_plugins.DomainGradlePlugin
+import klyuch.fastvote.build_src.gradle_plugins.DomainGradlePlugin
 
 apply<DomainGradlePlugin>()
 
