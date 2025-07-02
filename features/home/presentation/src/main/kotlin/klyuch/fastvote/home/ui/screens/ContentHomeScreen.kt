@@ -1,12 +1,14 @@
 package klyuch.fastvote.home.ui.screens
 
 import android.content.res.Configuration
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +19,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +33,7 @@ import klyuch.fastvote.core.ui.components.images.AppImage
 import klyuch.fastvote.core.ui.components.texts.AppLineText
 import klyuch.fastvote.core.ui.components.texts.AppText
 import klyuch.fastvote.core.ui.theme.AppTheme
+import klyuch.fastvote.core.ui.utils.HorizontalSpacer
 import klyuch.fastvote.core.ui.utils.VerticalSpacer
 import klyuch.fastvote.core.ui.utils.noIndicationClickable
 import klyuch.fastvote.home.R
@@ -82,7 +86,7 @@ private fun VoteCard(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
             VoteText(vote)
             VoteTags(vote.tags, onIntent)
             VerticalSpacer(AppTheme.shapes.paddingSmall)
-            VoteAnswers(vote.answers, onIntent)
+            VoteAnswers(vote, onIntent)
         }
     }
 }
@@ -143,10 +147,14 @@ private fun VoteTags(tags: List<String>, onIntent: (HomeIntent) -> Unit) {
 }
 
 @Composable
-private fun VoteAnswers(answers: List<PresentationAnswer>, onIntent: (HomeIntent) -> Unit) {
+private fun VoteAnswers(vote: PresentationVote, onIntent: (HomeIntent) -> Unit) {
+    val totalVotes = vote.answers.sumOf { it.votesCount }
+
     Column(verticalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingSmall)) {
-        answers.forEach { answer ->
+        vote.answers.forEach { answer ->
             VoteAnswer(
+                totalVotes = totalVotes,
+                selectedAnswerId = vote.selectedAnswerId,
                 answer = answer,
                 onClick = { onIntent(HomeIntent.OnAnswerClicked(answer)) }
             )
@@ -155,19 +163,63 @@ private fun VoteAnswers(answers: List<PresentationAnswer>, onIntent: (HomeIntent
 }
 
 @Composable
-private fun VoteAnswer(answer: PresentationAnswer, onClick: () -> Unit) {
-    Row(
+private fun VoteAnswer(
+    totalVotes: Int,
+    selectedAnswerId: Long?,
+    answer: PresentationAnswer,
+    onClick: () -> Unit
+) {
+    val votesPercentage = if (totalVotes != 0) {
+        answer.votesCount.toFloat() / totalVotes
+    } else 0f
+
+    val animatedPercentage by animateFloatAsState(
+        targetValue = if (selectedAnswerId != null) votesPercentage else 0f
+    )
+
+    Box(
         modifier = Modifier
             .fillMaxWidth()
+            .height(AppTheme.shapes.sizeMedium)
             .clip(AppTheme.shapes.roundCornerShape)
             .background(AppTheme.colorScheme.background)
-            .padding(
-                vertical = AppTheme.shapes.paddingNormal,
-                horizontal = AppTheme.shapes.paddingMedium
-            )
-            .noIndicationClickable(onClick)
+            .noIndicationClickable { if (selectedAnswerId == null) onClick() }
     ) {
-        AppLineText(text = answer.name)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(animatedPercentage)
+                .fillMaxHeight()
+                .clip(AppTheme.shapes.roundCornerShape)
+                .background(
+                    if (answer.id == selectedAnswerId) {
+                        AppTheme.colorScheme.primary
+                    } else {
+                        AppTheme.colorScheme.outline
+                    }
+                )
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = AppTheme.shapes.paddingSmall),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            AppLineText(
+                modifier = Modifier
+                    .clip(AppTheme.shapes.roundCornerShape)
+                    .background(AppTheme.colorScheme.background)
+                    .padding(
+                        vertical = AppTheme.shapes.paddingExtraSmall,
+                        horizontal = AppTheme.shapes.paddingNormal
+                    ),
+                text = answer.name
+            )
+            selectedAnswerId?.let {
+                HorizontalSpacer(AppTheme.shapes.paddingNormal)
+                AppLineText(text = "${answer.votesCount} • ${(votesPercentage * 100).toInt()}%")
+            }
+        }
     }
 }
 
@@ -207,7 +259,12 @@ private fun ContentHomeScreenPreview() {
                             title = "Title title title",
                             description = "Description description description description description",
                             tags = listOf("tag", "tag", "tag"),
-                            answers = List(3) { PresentationAnswer(0, "Yes", 10) },
+                            selectedAnswerId = 0,
+                            answers = listOf(
+                                PresentationAnswer(0, "Yes", 100),
+                                PresentationAnswer(1, "No", 50),
+                                PresentationAnswer(2, "Idk", 20)
+                            ),
                         )
                     }
                 ),

@@ -32,7 +32,7 @@ class HomeViewModel(
         getVotesJob?.cancel()
 
         getVotesJob = viewModelScope.launch {
-            getVotesUseCase().collect { result ->
+            getVotesUseCase(null).collect { result ->
                 when (result) {
                     is OperationResult.Success -> update {
                         copy(
@@ -58,7 +58,23 @@ class HomeViewModel(
 
     private fun onTagClicked(tag: String) = withContentState { }
 
-    private fun onAnswerClicked(answer: PresentationAnswer) = withContentState { }
+    private fun onAnswerClicked(answer: PresentationAnswer) = withContentState {
+        val updatedVotes = state.value.votes.map { vote ->
+            if (vote.answers.any { it.id == answer.id }) {
+                val updatedAnswers = vote.answers.map {
+                    if (it.id == answer.id) {
+                        it.copy(votesCount = it.votesCount + 1)
+                    } else it
+                }
+                vote.copy(
+                    selectedAnswerId = answer.id,
+                    answers = updatedAnswers
+                )
+            } else vote
+        }
+
+        update { copy(votes = updatedVotes) }
+    }
 
     private fun onRetryButtonClicked() = withErrorState {
         update { copy(viewState = AppViewState.LOADING) }

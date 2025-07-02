@@ -14,7 +14,7 @@ class GetVotesUseCase(
     private val votesRepository: VotesRepository,
     private val getOperationErrorUseCase: GetOperationErrorUseCase
 ) {
-    suspend operator fun invoke() = votesRepository.getVotes()
+    suspend operator fun invoke(userId: Long?) = votesRepository.getVotes(userId)
         .map { OperationResult.Success(it) as OperationResult<List<DomainVote>, OperationError> }
         .catch { emit(OperationResult.Error(getOperationErrorUseCase(it))) }
         .flowOn(Dispatchers.IO)

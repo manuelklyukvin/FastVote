@@ -24,7 +24,9 @@ internal fun CoreTextField(
         val valueLength = state.text.length
 
         LaunchedEffect(valueLength) {
-            if (valueLength > it) state.edit { delete(it, valueLength) }
+            if (valueLength > it) {
+                state.edit { delete(it, valueLength) }
+            }
         }
     }
 

@@ -9,7 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 
 class VotesRepositoryImpl(private val remoteVotesDataSource: RemoteVotesDataSource) : VotesRepository {
-    override suspend fun getVotes() = flow {
+    override suspend fun getVotes(userId: Long?) = flow {
         delay(2000)
 
         val defaultVote = DataVote(
@@ -23,6 +23,7 @@ class VotesRepositoryImpl(private val remoteVotesDataSource: RemoteVotesDataSour
             title = "Стоит ли мне перестать бить жену и детей?",
             description = "Тут я типо описываю всю ситуацию, чтобы юзеры смогли прочитать и проголосовать, а еще надо побольше текста, чтобы понять, как оно будет выглядеть",
             tags = listOf("семья", "дом", "дети"),
+            selectedAnswerId = null,
             answers = listOf(
                 DataAnswer(0, "Нет", 100),
                 DataAnswer(1, "Ни в коем случае", 150)

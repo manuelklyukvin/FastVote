@@ -7,6 +7,7 @@ data class DataVote(
     val title: String,
     val description: String,
     val tags: List<String>,
+    val selectedAnswerId: Long?,
     val answers: List<DataAnswer>
 )
 
@@ -17,5 +18,6 @@ fun DataVote.toDomain() = DomainVote(
     title = title,
     description = description,
     tags = tags,
+    selectedAnswerId = selectedAnswerId,
     answers = answers.map { it.toDomain() }
 )

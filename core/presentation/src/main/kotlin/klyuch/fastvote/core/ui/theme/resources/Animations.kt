@@ -15,5 +15,5 @@ internal object Animations {
     val exitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
         fadeOut(tween(TRANSITION_TIME))
     }
-    private const val TRANSITION_TIME = 250
+    private const val TRANSITION_TIME = 100
 }

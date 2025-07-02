@@ -7,6 +7,7 @@ data class PresentationVote(
     val title: String,
     val description: String,
     val tags: List<String>,
+    val selectedAnswerId: Long?,
     val answers: List<PresentationAnswer>
 )
 
@@ -17,5 +18,6 @@ fun DomainVote.toPresentation() = PresentationVote(
     title = title,
     description = description,
     tags = tags,
+    selectedAnswerId = selectedAnswerId,
     answers = answers.map { it.toPresentation() }
 )

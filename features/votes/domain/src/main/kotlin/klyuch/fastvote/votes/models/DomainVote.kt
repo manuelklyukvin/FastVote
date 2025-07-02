@@ -7,5 +7,6 @@ data class DomainVote(
     val title: String,
     val description: String,
     val tags: List<String>,
+    val selectedAnswerId: Long?,
     val answers: List<DomainAnswer>
 )
